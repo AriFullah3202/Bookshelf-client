@@ -1,6 +1,32 @@
 
 import { Link } from "react-router-dom";
+import { useGetUserDetailsQuery } from "../redux/feature/auth/authAciton";
+import { useDispatch, useSelector } from "react-redux";
+import { logout, setCredentials } from "../redux/feature/user/userSlice";
+import { useEffect } from "react";
 export default function Navbar() {
+
+
+  const { user } = useSelector((state) => state.auth)
+  console.log(user, "this si header")
+  const dispatch = useDispatch()
+
+  // automatically authenticate user if token is found
+  const { data, isFetching } = useGetUserDetailsQuery('userDetails', {
+  // perform a refetch every 15mins
+    pollingInterval: 900000,
+  })
+console.log("first")
+
+  useEffect(() => {
+    console.log("second")
+    if (data) dispatch(setCredentials(data?.data?.email))
+  }, [data, dispatch])
+  console.log(data?.data)
+
+  const handleLogout = () => {
+   dispatch(logout())
+  };
 
   return (
     <div className="navbar bg-green-300 ">
@@ -25,17 +51,43 @@ export default function Navbar() {
       
 
         </li>
-        <li>
-        <Link to="/addProduct">Add Product</Link>
+     
+        {data?.data?.email && (
+          <li>
+
+            <Link to="/addProduct">Add Product</Link>
+          </li>
+
+        )}
+      
+
+      
+      
+        
+        {!data?.data?.email && (
+                      <>
+                        <li>
+                        <Link to="/auth/login">Login</Link>
       
 
         </li>
-      
-        <li>
-        <Link to="auth/login">Login</Link>
+                    
+                      <li>  <Link to="auth/signup">
+                          Signup
+                        </Link></li>
+                      </>
+                    )}
+  
       
 
-        </li>
+  {data?.data?.email && (
+        
+        <li>
+        <Link to="" onClick={handleLogout}>
+          Logout({data?.data?.name?.firstName})
+        </Link>
+      </li>
+                    )}
       </ul>
     </div>
     <div className="navbar-end">

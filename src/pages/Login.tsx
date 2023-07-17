@@ -1,13 +1,42 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useForm, } from 'react-hook-form';
 import PrimaryButton from "../components/Button/PrimaryButton";
-import SmallSpinner from "../components/Spiner/SmallSpinner";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../redux/feature/user/userSlice";
+import { useEffect } from "react";
 
 const Login = () => {
 
+  const {isLoading , isError , userToken} = useSelector((state) => state?.auth)
+
+ 
+  console.log(isLoading , isError  , userToken)
+
+  const dispatch = useDispatch()
   const { register, handleSubmit , errors} = useForm();
-  const handleLogin = (data : any) => console.log(data);
+
+
+  interface LoginFormInputs {
+    email: string;
+    password: string;
+  }
+
+  // const navigate = useNavigate()
+
+  // // redirect authenticated user to profile screen
+  // useEffect(() => {
+  //   if (userInfo) {
+  //     navigate('/user-profile')
+  //   }
+  // }, [navigate, userInfo])
+
+
+  const handleLogin = (data : LoginFormInputs) => {
+   dispatch(loginUser({email : data.email , password : data.password}))
+  }
+
 
 return (
   <div className='flex justify-center items-center pt-8'>
@@ -68,7 +97,7 @@ return (
               type='submit'
               classes='w-full px-8 py-3 font-semibold rounded-md bg-gray-900 hover:bg-gray-700 hover:text-white text-gray-100'
             >
-            Sign up
+            Sign in
             </PrimaryButton>
           </div>
 
