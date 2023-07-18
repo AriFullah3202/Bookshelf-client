@@ -1,6 +1,6 @@
 
 import { Link } from "react-router-dom";
-import { useGetUserDetailsQuery } from "../redux/feature/auth/authAciton";
+import { useGetUserDetailsQuery } from "../redux/api/authAciton";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, setCredentials } from "../redux/feature/user/userSlice";
 import { useEffect } from "react";

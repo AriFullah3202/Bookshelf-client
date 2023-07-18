@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../redux/feature/user/userSlice";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
-import { useGetUserDetailsQuery } from "../redux/feature/auth/authAciton";
+import { useGetUserDetailsQuery } from "../redux/api/authAciton";
 
 const Login = () => {
   const location = useLocation()
