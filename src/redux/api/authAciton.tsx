@@ -26,6 +26,13 @@ export const authApi = createApi({
         method: 'GET',
       }),
     }),
-  }),
+    postReview: builder.mutation({
+      query: ( {data} ) => ({
+        url: `api/v1/reviews/`,
+        method: 'POST',
+        body: data,
+      }),
+    })
+  })
 })
-export const { useGetUserDetailsQuery } = authApi
+export const { useGetUserDetailsQuery , usePostReviewMutation} = authApi

@@ -51,21 +51,14 @@ const handleDelete = {}
           <span className="font-semibold">Published:</span> {data?.data?.publicationDate}
         </p>
         <p className="mb-4">
-          <span className="font-semibold">Reviews:</span>{' '}
-          {/* {review?.data?.data.map((review: string, index: number) => (
-            <span key={index} className="mr-2">
-              {review},
-            </span>
-          ))} */}
-          {review?.data?.data.map((review, index) => (
-  <div key={index}>
-    <h3>Review {index + 1}:</h3>
-    {review.review.filter(Boolean).map((comment, i) => (
-      <p key={i}>{comment}</p>
+        {review?.data?.data?.review && (
+  <div>
+    <span className="font-semibold">Reviews:</span>
+    {review?.data?.data?.review.map((comment, index) => (
+      <p key={index}>{comment}</p>
     ))}
   </div>
-))}
-
+)}
           
         </p>
         <div>

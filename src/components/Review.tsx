@@ -1,10 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { usePostReviewMutation } from '../redux/api/authAciton';
 
 export const Review = (id) => {
-
+  
+    const [review, setReview] = useState('');
+    const [updatePost,result] = usePostReviewMutation()
     console.log(id , "for the review")
-    const review = []
-    const handleReview = {}
+
+
+
+
+    const handleReview = (event:any) => {
+        event.preventDefault();
+      
+        // Do something with the review value, such as sending it to the backend
+        if(!review){
+             console.log("now")
+        }
+        else{
+            const options = {
+                data: { review: [review] , book : id.id},
+              };
+      
+        updatePost(options)
+    
+      }
+        setReview('');
+      };
+
   return (
     <form onSubmit={handleReview} className="flex flex-row items-center">
     <textarea
@@ -17,4 +40,5 @@ export const Review = (id) => {
   </form>
   
   )
+  
 }
