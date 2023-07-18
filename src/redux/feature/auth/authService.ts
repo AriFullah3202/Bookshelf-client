@@ -28,15 +28,27 @@ const login = (email: any, password: any) => {
       return response.data;
     });
 };
+const createUser = (email: any, name: any, password: any) => {
+  console.log(email, password, name, "from action");
+  return axios
+    .post(API_URL + "/auth/signup", {
+      email,
+      name,
+      password,
+    })
+    .then((response) => {
+      if (response.data) {
+        console.log("frofm response", response.data.data);
+      }
 
-const logout = () => {
-  localStorage.removeItem("user");
+      return response.data;
+    });
 };
 
 const authService = {
   register,
   login,
-  logout,
+  createUser,
 };
 
 export default authService;

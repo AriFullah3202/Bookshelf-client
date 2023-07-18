@@ -10,6 +10,10 @@ import AddProducts from '../pages/AddProducts';
 import PrivateRoute from './PrivateRoute';
 import { ProductDetails } from '../pages/ProductDetails';
 import Login from '../pages/Login';
+import Reading from '../pages/Reading';
+import { WishList } from '../pages/Wishlist';
+
+
 
 
 const routes = createBrowserRouter([
@@ -45,6 +49,14 @@ const routes = createBrowserRouter([
       {
         path: '/products',
         element: <Product/>
+      },
+      {
+        path: '/wishlist',
+        element: <WishList/>
+      },
+      {
+        path: '/reading',
+        element: <Reading/>
       },
       {
         path: '/addProduct',

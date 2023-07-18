@@ -37,11 +37,10 @@ export const loginUser = createAsyncThunk(
   );
 export const createUser = createAsyncThunk(
     'user/createUser',
-    async ({ email, password }: ICredential) => {
-        const data = await authService.login(email, password);
+    async ({ email,name, password }) => {
+      console.log(email , name , password , "from ser slice")
+        const data = await authService.createUser(email,name , password);
         console.log(data.data.email , "form  slice")
-        localStorage.setItem("userToken",data.data.accessToken);
-  
       return data.data;
     }
   );
@@ -87,6 +86,20 @@ const userSlice = createSlice({
           state.isLoading = false;
         })
         .addCase(loginUser.rejected, (state, action) => {
+          state.user.email = null;
+          state.isLoading = false;
+          state.isError = true;
+          state.error = action.error.message!;
+        })
+       .addCase(createUser.pending, (state) => {
+          state.isLoading = true;
+          state.isError = false;
+          state.error = null;
+        })
+        .addCase(createUser.fulfilled, (state, {payload}) => {
+          state.isLoading = false;
+        })
+        .addCase(createUser.rejected, (state, action) => {
           state.user.email = null;
           state.isLoading = false;
           state.isError = true;

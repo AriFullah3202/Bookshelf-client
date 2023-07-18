@@ -59,6 +59,15 @@ console.log("first")
           </li>
 
         )}
+        {data?.data?.email && (
+        
+           <li> <Link to="/wishlist">My WishList</Link></li>
+
+        )}
+        {data?.data?.email && (
+         <li><Link to="/reading">My ReadingList</Link></li>
+
+        )}
       
 
       
@@ -72,7 +81,7 @@ console.log("first")
 
         </li>
                     
-                      <li>  <Link to="auth/signup">
+                      <li>  <Link to="/auth/signup">
                           Signup
                         </Link></li>
                       </>
