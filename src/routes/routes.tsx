@@ -10,8 +10,8 @@ import PrivateRoute from './PrivateRoute';
 import Login from '../pages/Login';
 import Reading from '../pages/Reading';
 import { WishList } from '../pages/Wishlist';
-import { Products } from '../pages/Products';
 import ProductDetails from '../pages/ProductDetails';
+import Products from '../pages/Products';
 
 
 
