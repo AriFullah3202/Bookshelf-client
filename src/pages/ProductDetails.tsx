@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useSingleBookQuery } from "../redux/feature/book/bookSlice";
 import { useAppSelector } from "../redux/hook";
+import { Review } from "../components/Review";
 
 export default function ProductDetails() {
   const review = []
@@ -16,15 +17,10 @@ console.log(data , "data")
 
 const {user} = useAppSelector(state => state?.auth)
 
-
-
-const navigate = useNavigate()
 console.log(data)
 
 // Inside your component
 
-
-const handleReview = (event:any) => {}
  
 
   return (
@@ -38,15 +34,15 @@ const handleReview = (event:any) => {}
     />
     <div className="flex justify-center">
       <div className="ml-8">
-        <h1 className="text-5xl font-bold mb-6">{data?.Title}</h1>
+        <h1 className="text-5xl font-bold mb-6">{data?.data?.title}</h1>
         <p className="mb-4">
-          <span className="font-semibold">Genre:</span> {data?.Genre}
+          <span className="font-semibold">Genre:</span> {data?.data?.genre}
         </p>
         <p className="mb-4">
-          <span className="font-semibold">Author:</span> {data?.Author}
+          <span className="font-semibold">Author:</span> {data?.data?.author}
         </p>
         <p className="mb-4">
-          <span className="font-semibold">Published:</span> {data?.PublicationDate}
+          <span className="font-semibold">Published:</span> {data?.data?.publicationDate}
         </p>
         <p className="mb-4">
           <span className="font-semibold">Reviews:</span>{' '}
@@ -57,16 +53,7 @@ const handleReview = (event:any) => {}
           ))}
         </p>
         <div>
-        <form onSubmit={handleReview} className="flex flex-row items-center">
-  <textarea
-    placeholder="Give a review"
-    className="textarea textarea-bordered textarea-lg mb-4 w-full max-w-xs mr-2"
-    value={review}
-    onChange={(event) => setReview(event.target.value)}
-  ></textarea>
-  <button type="submit" className="btn btn-accent  border-0">Submit Review</button>
-</form>
-
+      
   </div>
         <div className="flex gap-4">
         {data?.email === user.email && (
@@ -76,7 +63,7 @@ const handleReview = (event:any) => {}
   </>
 )}
 
-         
+         <Review id = {id}></Review>
         </div>
       </div>
     </div>
