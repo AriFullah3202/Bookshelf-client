@@ -3,12 +3,11 @@ import { useState } from "react";
 import { useNavigate, useParams, } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useSingleBookQuery } from "../redux/feature/book/bookSlice";
+import { useGetAllBooksQuery, useGetAllReviewQuery, useSingleBookQuery } from "../redux/feature/book/bookSlice";
 import { useAppSelector } from "../redux/hook";
 import { Review } from "../components/Review";
 
 export default function ProductDetails() {
-  const review = []
   const {id} = useParams()
   console.log(id, "this is id")
 
@@ -16,10 +15,17 @@ const { data, isLoading, error } = useSingleBookQuery(id);
 console.log(data , "data")
 
 const {user} = useAppSelector(state => state?.auth)
+console.log(data?.data?.user?.email , "====" , user.email)
+
+console.log(data)
+// fro reviews
+const review  = useGetAllReviewQuery(id)
+console.log(review?.data?.data, "this is review")
 
 console.log(data)
 
-// Inside your component
+const handleEdit = {}
+const handleDelete = {}
 
  
 
@@ -46,25 +52,35 @@ console.log(data)
         </p>
         <p className="mb-4">
           <span className="font-semibold">Reviews:</span>{' '}
-          {data?.Reviews?.map((review: string, index: number) => (
+          {/* {review?.data?.data.map((review: string, index: number) => (
             <span key={index} className="mr-2">
               {review},
             </span>
-          ))}
+          ))} */}
+          {review?.data?.data.map((review, index) => (
+  <div key={index}>
+    <h3>Review {index + 1}:</h3>
+    {review.review.filter(Boolean).map((comment, i) => (
+      <p key={i}>{comment}</p>
+    ))}
+  </div>
+))}
+
+          
         </p>
         <div>
       
   </div>
         <div className="flex gap-4">
-        {data?.email === user.email && (
+        {data?.data?.user?.email === user?.email && (
   <>
     <label className="btn btn-primary" onClick={handleEdit} htmlFor={`my-modal-${data?._id}`}>Edit</label>
     <button className="btn btn-primary bg-red-500 border-0" onClick={handleDelete}>Delete</button>
   </>
 )}
 
-         <Review id = {id}></Review>
         </div>
+         <Review id = {id}></Review>
       </div>
     </div>
   </div>

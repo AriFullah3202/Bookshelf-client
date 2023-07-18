@@ -1,6 +1,10 @@
 import React from 'react'
 
 export const Review = (id) => {
+
+    console.log(id , "for the review")
+    const review = []
+    const handleReview = {}
   return (
     <form onSubmit={handleReview} className="flex flex-row items-center">
     <textarea

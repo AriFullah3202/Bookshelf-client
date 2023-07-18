@@ -18,6 +18,9 @@ const booksApi   =  publicApi.injectEndpoints({
               singleBook: builder.query({
                 query: (id) => `/book/${id}`,
               }),
+              getAllReview:builder.query({
+                query:(id)=>`/reviews/${id}`
+                  }),
     
     })
     
@@ -27,6 +30,7 @@ const booksApi   =  publicApi.injectEndpoints({
         export const {
             useGetBooksQuery,
             useGetAllBooksQuery,
-            useSingleBookQuery
+            useSingleBookQuery,
+            useGetAllReviewQuery
           
         } =  booksApi
