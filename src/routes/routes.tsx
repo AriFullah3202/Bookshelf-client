@@ -3,15 +3,15 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import App from '../App';
 import Home from '../pages/Home';
-import { Product } from '../pages/Product';
 import Signup from '../pages/Signup';
 import { NotFound } from '../pages/NotFound';
 import AddProducts from '../pages/AddProducts';
 import PrivateRoute from './PrivateRoute';
-import { ProductDetails } from '../pages/ProductDetails';
 import Login from '../pages/Login';
 import Reading from '../pages/Reading';
 import { WishList } from '../pages/Wishlist';
+import { Products } from '../pages/Products';
+import ProductDetails from '../pages/ProductDetails';
 
 
 
@@ -48,7 +48,7 @@ const routes = createBrowserRouter([
       
       {
         path: '/products',
-        element: <Product/>
+        element: <Products/>
       },
       {
         path: '/wishlist',
@@ -63,7 +63,7 @@ const routes = createBrowserRouter([
         element: <PrivateRoute><AddProducts></AddProducts></PrivateRoute>
       },
       {
-        path: '/product-details/:id',
+        path: '/book/:id',
         element: <ProductDetails/>,
       },
     
