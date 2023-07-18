@@ -64,7 +64,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setCredentials: (state, { payload }) => {
-        state.user.email = payload.email;
+        state.user.email = payload;
       },
       logout: (state) => {
         localStorage.removeItem('userToken') // deletes token from storage
@@ -81,9 +81,9 @@ const userSlice = createSlice({
           state.error = null;
         })
         .addCase(loginUser.fulfilled, (state, {payload}) => {
-          state.userToken = payload.accessToken;
-          state.user.email = payload.email;
           state.isLoading = false;
+          state.user.email = payload.email;
+          state.userToken = payload.accessToken;
         })
         .addCase(loginUser.rejected, (state, action) => {
           state.user.email = null;
@@ -98,6 +98,7 @@ const userSlice = createSlice({
         })
         .addCase(createUser.fulfilled, (state, {payload}) => {
           state.isLoading = false;
+          state.user.email= payload.email
         })
         .addCase(createUser.rejected, (state, action) => {
           state.user.email = null;

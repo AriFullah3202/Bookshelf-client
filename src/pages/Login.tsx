@@ -1,20 +1,27 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useActionData, useLocation, useNavigate } from "react-router-dom"
 import { useForm, } from 'react-hook-form';
 import PrimaryButton from "../components/Button/PrimaryButton";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../redux/feature/user/userSlice";
 import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../redux/hook";
+import { useGetUserDetailsQuery } from "../redux/feature/auth/authAciton";
 
 const Login = () => {
+  const location = useLocation()
+  const navigate = useNavigate()
+  const from = location?.state?.path || '/';
 
-  const {isLoading , isError , userToken} = useSelector((state) => state?.auth)
+ const {user} = useAppSelector(state => state?.auth)
+  const dispatch =useAppDispatch()
 
- 
-  console.log(isLoading , isError  , userToken)
+  if(user?.email){
+    navigate(from, { replace: true });
+  }
 
-  const dispatch = useDispatch()
   const { register, handleSubmit , errors} = useForm();
 
 
@@ -34,6 +41,7 @@ const Login = () => {
 
 
   const handleLogin = (data : LoginFormInputs) => {
+   // eslint-disable-next-line @typescript-eslint/no-floating-promises
    dispatch(loginUser({email : data.email , password : data.password}))
   }
 
@@ -43,9 +51,14 @@ return (
     <div className='flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-200 text-gray-900'>
       <div className='mb-8 text-center'>
         <h1 className='my-3 text-4xl font-bold'>Sign in</h1>
-        <p className='text-sm text-gray-400'>
+      
+        {
+          user?.email  ? <p className='text-sm text-blue-800'>
+          You are already logged in
+        </p> :   <p className='text-sm text-gray-400'>
           Sign in to access your account
         </p>
+        }
       </div>
       <form
         // eslint-disable-next-line @typescript-eslint/no-misused-promises

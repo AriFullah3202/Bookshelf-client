@@ -1,17 +1,27 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { useForm, } from 'react-hook-form';
 import PrimaryButton from "../components/Button/PrimaryButton";
 import SmallSpinner from "../components/Spiner/SmallSpinner";
 import { useDispatch } from "react-redux";
 import { createUser } from "../redux/feature/user/userSlice";
+import { useAppDispatch, useAppSelector } from "../redux/hook";
 
 const Signup = () => {
 
+  const navigate = useNavigate()
+
+
+  const {user} = useAppSelector(state => state?.auth)
+
+
   const { register, handleSubmit , errors} = useForm();
 
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+  if(user?.email){
+    navigate('/auth/login');
+  }
 
 
   const handleLogin = (data) => {
@@ -22,6 +32,7 @@ const Signup = () => {
     };
    
     dispatch(createUser({email : data.email ,name, password : data.password}))
+
     navigate('/auth/login')
   };
 

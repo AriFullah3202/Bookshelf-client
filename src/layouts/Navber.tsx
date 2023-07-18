@@ -4,11 +4,12 @@ import { useGetUserDetailsQuery } from "../redux/feature/auth/authAciton";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, setCredentials } from "../redux/feature/user/userSlice";
 import { useEffect } from "react";
+import { useAppSelector } from "../redux/hook";
 export default function Navbar() {
 
 
-  const { user } = useSelector((state) => state.auth)
-  console.log(user, "this si header")
+
+  
   const dispatch = useDispatch()
 
   // automatically authenticate user if token is found
@@ -16,8 +17,6 @@ export default function Navbar() {
   // perform a refetch every 15mins
     pollingInterval: 900000,
   })
-console.log("first")
-
   useEffect(() => {
     console.log("second")
     if (data) dispatch(setCredentials(data?.data?.email))
@@ -27,7 +26,7 @@ console.log("first")
   const handleLogout = () => {
    dispatch(logout())
   };
-
+  
   return (
     <div className="navbar bg-green-300 ">
     <div className="navbar-start">
@@ -91,7 +90,7 @@ console.log("first")
 
   {data?.data?.email && (
         
-        <li>
+        <li className="font-semibold">
         <Link to="" onClick={handleLogout}>
           Logout({data?.data?.name?.firstName})
         </Link>
